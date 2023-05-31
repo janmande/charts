@@ -20,8 +20,8 @@ metadata:
     {{- end }}
   {{- end }}
 spec:
-  {{- if .Values.global.k8sServiceNameOverride }}
-  serviceName: {{ .Values.global.k8sServiceNameOverride }}
+  {{- if .Values.k8sServicenameOverride }}
+  serviceName: {{ .Values.k8sServicenameOverride }}
   {{- else }}
     serviceName: {{ printf "%s-%s" (include "common.names.fullname" .) (default "headless" .Values.servicenameOverride) }}
   {{- end }}
@@ -184,7 +184,8 @@ spec:
               value: {{ .Values.k8sServicenameOverride }}
               {{- else }}
               value: {{ printf "%s-%s" (include "common.names.fullname" .) (default "headless" .Values.servicenameOverride) }}
-              {{- end }}            - name: K8S_ADDRESS_TYPE
+              {{- end }}
+            - name: K8S_ADDRESS_TYPE
               value: {{ .Values.clustering.addressType }}
             {{- if .Values.featureFlags }}
             - name: RABBITMQ_FEATURE_FLAGS
